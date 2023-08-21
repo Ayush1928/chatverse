@@ -45,7 +45,7 @@ const SidebarChatList: React.FunctionComponent<ISidebarChatListProps> = ({ frien
     pusherClient.subscribe(toPusherKey(`user:${session.user.id}:friends`))
 
     const newFriendHandler = (newFriend: User) => {
-      setActiveChats((prev)=> [...prev,newFriend])
+      setActiveChats((prev) => [...prev, newFriend])
     }
 
     const chatHandler = (message: ExtendedMessage) => {
@@ -86,10 +86,13 @@ const SidebarChatList: React.FunctionComponent<ISidebarChatListProps> = ({ frien
         return unseenMsg.senderId === friend.id
       }).length
       const isChatOpened = friendId === friend.id;
-      const lastMessage = friendsWithLastMessage[index].lastMessage?.text || null
-      const truncatedLastMessage = lastMessage && lastMessage.length > 35
-        ? lastMessage.slice(0, 35) + "..."
-        : lastMessage;
+      const lastMessage = friendsWithLastMessage[index].lastMessage?.text
+      let truncatedLastMessage = undefined
+      if (lastMessage) {
+        truncatedLastMessage = lastMessage.length > 35
+          ? lastMessage.slice(0, 35) + "..."
+          : lastMessage;
+      }
 
       return <li key={friend.id}>
         <Link href={`/dashboard/chat/${chatHrefConstructor(session.user.id, friend.id)}`} className={cname("text-slate-200 group flex items-center gap-x-3 rounded-md p-2 text-md leading-6 font-semibold border-2 border-slate-900 hover:border-indigo-700", {
@@ -107,11 +110,13 @@ const SidebarChatList: React.FunctionComponent<ISidebarChatListProps> = ({ frien
               {friend.name}
             </div>
             <div className="text-xs text-slate-400">
-              {truncatedLastMessage !== null ? (
+              {truncatedLastMessage !== undefined ? (
                 <span>{truncatedLastMessage}</span>
               ) : null}
             </div>
           </div>
+          {unseenMessageCount > 0 ? (
+            <div className='bg-white font-medium text-xs w-6 h-6 p-[0.625rem] rounded-lg flex justify-center items-center opacity-70 text-indigo-900 ml-auto'>{unseenMessageCount}</div>) : null}
         </Link>
       </li>
     })}
