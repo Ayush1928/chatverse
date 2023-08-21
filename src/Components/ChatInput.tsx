@@ -38,7 +38,7 @@ const ChatInput: React.FunctionComponent<IChatInputProps> = ({ chatId }) => {
                     e.preventDefault()
                     sendMessage();
                 }
-            }} rows={1} value={input} onChange={((e) => setInput(e.target.value))} placeholder="Type your message here..." className="block w-full resize-none border-0 bg-transparent text-slate-200 placeholder:text-slate-400 focus:ring-0 sm:py-1.5 lg:text-md sm:text-sm sm:leading-6" />
+            }} rows={1} value={input} onChange={((e) => setInput(e.target.value))} placeholder="Type your message here..." className="block w-[18rem] md:w-full resize-none border-0 bg-transparent text-slate-200 placeholder:text-slate-400 focus:ring-0 sm:py-1.5 lg:text-md sm:text-sm sm:leading-6" />
 
             <div className="absolute right-0 flex justify-between pl-3 pr-3">
                 <div className="flex-shrink-0">

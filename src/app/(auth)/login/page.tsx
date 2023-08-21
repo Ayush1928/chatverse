@@ -36,7 +36,7 @@ const Page: React.FunctionComponent<IPageProps> = (props) => {
   }
 
   return <>
-    <div className='flex h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-800'>
+    <div className='flex h-screen items-center justify-center py-0 md:py-12 px-4 sm:px-6 lg:px-8 bg-slate-800'>
       <div className='w-full flex flex-col items-center max-w-md space-y-8'>
         <div className="flex flex-col items-center gap-8">
           <Icons.Logo className="h-24 w-auto text-indigo-700" />
