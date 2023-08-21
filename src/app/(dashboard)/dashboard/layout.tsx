@@ -35,7 +35,7 @@ const Layout = async ({ children }: ILayoutProps) => {
 
     const friendsWithLastMessage = await Promise.all(
         friends.map(async (friend) => {
-            const [lastMessageString] = await fetchRedis("zrange", `chat:${chatHrefConstructor(session.user.id, friend.id)}:messages`, -1, -1) as string[]
+            const [lastMessageString] = await fetchRedis("zrange", `chat:${chatHrefConstructor(session.user.id, friend.id)}:messages`, -1, -1) as string[] | null[]
 
             let lastMessage = undefined
 

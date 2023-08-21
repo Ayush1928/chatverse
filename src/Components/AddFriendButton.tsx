@@ -14,8 +14,7 @@ interface IAddFriendButtonProps {
 type FormData = z.infer<typeof addFriendValidator>
 
 const AddFriendButton: React.FunctionComponent<IAddFriendButtonProps> = ({ }) => {
-    const [showSuccessState, setShowSuccessState] = useState<boolean>(false);
-    const [open, setOpen] = useState(true)
+    const [showSuccessState, setShowSuccessState] = useState<boolean>(false)
     const cancelButtonRef = useRef(null)
     const { register, handleSubmit, setError, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(addFriendValidator),
@@ -49,7 +48,10 @@ const AddFriendButton: React.FunctionComponent<IAddFriendButtonProps> = ({ }) =>
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-[24rem] md:w-[30rem]">
             <div className='mt-2 flex gap-4'>
-                <input {...register('email')} type="text" className="block w-full bg-slate-200 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder='example@abc.com' /><Button className="hover:bg-slate-900 hover:border-indigo-700">Add</Button>
+                <input {...register('email')} type="text" className="block w-full bg-slate-200 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder='example@abc.com' />
+                <Button className="hover:bg-slate-900 hover:border-indigo-700">
+                    Add
+                </Button>
             </div>
             <p className='mt-2 text-base text-red-600'>{errors.email?.message}</p>
             {showSuccessState ? (
