@@ -33,18 +33,29 @@ const Layout = async ({ children }: ILayoutProps) => {
 
     const friends = await getFriendsByUserId(session.user.id) as User[]
 
-    const friendsWithLastMessage = await Promise.all(
-        friends.map(async (friend) => {
-            const [lastMessageString] = await fetchRedis("zrange", `chat:${chatHrefConstructor(session.user.id, friend.id)}:messages`, -1, -1) as string[]
+    const friendsWithLastMessage = await Promise.all(friends.map(async (friend) => {
+        const [lastMessageString] = await fetchRedis("zrange", `chat:${chatHrefConstructor(session.user.id, friend.id)}:messages`, -1, -1) as string[]
 
+        if (lastMessageString === undefined) {
+            return {
+                ...friend,
+                lastMessage: null
+            };
+        }
+        try {
             const lastMessage = JSON.parse(lastMessageString) as Message
-
             return {
                 ...friend,
                 lastMessage
-            }
-        })
-    )
+            };
+        } catch (error) {
+            console.error("Error parsing JSON:", error);
+            return {
+                ...friend,
+                lastMessage: null
+            };
+        }
+    }));
 
     const unseenRequestCount = (await fetchRedis('smembers', `user:${session.user.id}:incoming_friend_requests`) as User[]).length
     return (<div className="w-full flex h-screen">

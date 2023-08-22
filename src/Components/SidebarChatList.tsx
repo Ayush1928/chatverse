@@ -86,7 +86,10 @@ const SidebarChatList: React.FunctionComponent<ISidebarChatListProps> = ({ frien
         return unseenMsg.senderId === friend.id
       }).length
       const isChatOpened = friendId === friend.id;
-      const lastMessage = friendsWithLastMessage[index].lastMessage?.text as string
+      let lastMessage
+      if (friendsWithLastMessage.length !== 0) {
+        lastMessage = friendsWithLastMessage[index].lastMessage?.text as string
+      }
       const truncatedLastMessage = lastMessage && lastMessage.length > 35
         ? lastMessage.slice(0, 35) + "..."
         : lastMessage;

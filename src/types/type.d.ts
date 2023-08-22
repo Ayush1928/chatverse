@@ -8,9 +8,9 @@ interface SidebarOptions {
 }
 
 interface FriendsWithLastMessage {
-    lastMessage: Message
+    lastMessage: Message | null
     name: string
     email: string
     image: string
-    id: string;
+    id: string
   }
