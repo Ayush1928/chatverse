@@ -40,7 +40,7 @@ const Layout = async ({ children }: ILayoutProps) => {
             let lastMessage = undefined
 
             if(lastMessageString){
-                lastMessage = JSON.parse(lastMessageString) as Message
+                lastMessage = JSON.parse(lastMessageString) as Message | undefined
             }
 
             return {
