@@ -1,5 +1,5 @@
 import FriendRequestOption from "@/Components/FriendRequestOption";
-import { Icon, Icons } from "@/Components/Icons";
+import { Icons } from "@/Components/Icons";
 import MobileChatLayout from "@/Components/MobileChatLayout";
 import SidebarChatList from "@/Components/SidebarChatList";
 import SignOutButton from "@/Components/SignOutButton";
@@ -35,13 +35,9 @@ const Layout = async ({ children }: ILayoutProps) => {
 
     const friendsWithLastMessage = await Promise.all(
         friends.map(async (friend) => {
-            const [lastMessageString] = await fetchRedis("zrange", `chat:${chatHrefConstructor(session.user.id, friend.id)}:messages`, -1, -1) as string[] | undefined[]
+            const [lastMessageString] = await fetchRedis("zrange", `chat:${chatHrefConstructor(session.user.id, friend.id)}:messages`, -1, -1) as string[]
 
-            let lastMessage = undefined
-
-            if(lastMessageString){
-                lastMessage = JSON.parse(lastMessageString) as Message | undefined
-            }
+            const lastMessage = JSON.parse(lastMessageString) as Message
 
             return {
                 ...friend,
@@ -53,7 +49,7 @@ const Layout = async ({ children }: ILayoutProps) => {
     const unseenRequestCount = (await fetchRedis('smembers', `user:${session.user.id}:incoming_friend_requests`) as User[]).length
     return (<div className="w-full flex h-screen">
         <div className="md:hidden">
-            <MobileChatLayout friendsWithLastMessage={friendsWithLastMessage} friends={friends} session={session} sidebarOptions={sidebarOptions} unseenRequestCount={unseenRequestCount}/>
+            <MobileChatLayout friendsWithLastMessage={friendsWithLastMessage} friends={friends} session={session} sidebarOptions={sidebarOptions} unseenRequestCount={unseenRequestCount} />
         </div>
         <div className="hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-950 bg-slate-900 px-6">
             <Link href="/dashboard" className="flex h-14 -mx-5 mt-2 -mb-4 shrink-0 items-center">

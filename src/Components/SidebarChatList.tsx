@@ -86,13 +86,10 @@ const SidebarChatList: React.FunctionComponent<ISidebarChatListProps> = ({ frien
         return unseenMsg.senderId === friend.id
       }).length
       const isChatOpened = friendId === friend.id;
-      const lastMessage = friendsWithLastMessage[index].lastMessage?.text
-      let truncatedLastMessage = undefined
-      if (lastMessage) {
-        truncatedLastMessage = lastMessage.length > 35
-          ? lastMessage.slice(0, 35) + "..."
-          : lastMessage;
-      }
+      const lastMessage = friendsWithLastMessage[index].lastMessage?.text as string
+      const truncatedLastMessage = lastMessage && lastMessage.length > 35
+        ? lastMessage.slice(0, 35) + "..."
+        : lastMessage;
 
       return <li key={friend.id}>
         <Link href={`/dashboard/chat/${chatHrefConstructor(session.user.id, friend.id)}`} className={cname("text-slate-200 group flex items-center gap-x-3 rounded-md p-2 text-md leading-6 font-semibold border-2 border-slate-900 hover:border-indigo-700", {
@@ -110,7 +107,7 @@ const SidebarChatList: React.FunctionComponent<ISidebarChatListProps> = ({ frien
               {friend.name}
             </div>
             <div className="text-xs text-slate-400">
-              {truncatedLastMessage !== undefined ? (
+              {truncatedLastMessage ? (
                 <span>{truncatedLastMessage}</span>
               ) : null}
             </div>

@@ -8,7 +8,7 @@ interface SidebarOptions {
 }
 
 interface FriendsWithLastMessage {
-    lastMessage: Message | undefined
+    lastMessage: Message
     name: string
     email: string
     image: string
