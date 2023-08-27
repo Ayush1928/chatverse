@@ -66,11 +66,9 @@ const Layout = async ({ children }: ILayoutProps) => {
             <Link href="/dashboard" className="flex h-14 -mx-5 mt-2 -mb-4 shrink-0 items-center">
                 <Icons.Logo className="h-12 w-auto text-indigo-700" />
             </Link>
-            {friends.length > 0 ? (
                 <div className="text-xs font-semibold leading-6 text-slate-300">
                     Chats
                 </div>
-            ) : null}
             <nav className="flex flex-col h-full">
                 <ul role="list" className="flex flex-col gap-y-1 h-full">
                     <li>

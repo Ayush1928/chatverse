@@ -11,12 +11,10 @@ export async function POST(req: Request) {
         const { text, chatId }: { text: string, chatId: string } = await req.json();
         const session = await getServerSession(authOptions);
 
-        //Check if the session exists or not.
         if (!session) return new Response('Unauthorised', { status: 401 })
 
         const [userId1, userId2] = chatId.split("--")
 
-        //User authorised or not.
         if (session.user.id !== userId1 && session.user.id !== userId2) {
             return new Response('Unauthorised', { status: 401 })
         }
@@ -47,9 +45,9 @@ export async function POST(req: Request) {
         const message = messageValidator.parse(messageData)
 
         //Notifying all the user subscribed to the chatId 
-        pusherServer.trigger(toPusherKey(`chat:${chatId}`),"incoming-message",message)
+        await pusherServer.trigger(toPusherKey(`chat:${chatId}`),"incoming-message",message)
 
-        pusherServer.trigger(toPusherKey(`user:${friendId}:chats`),"new_message",{
+        await pusherServer.trigger(toPusherKey(`user:${friendId}:chats`),"new_message",{
             ...message,
             senderImg: sender.image,
             senderName: sender.name
