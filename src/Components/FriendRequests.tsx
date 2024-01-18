@@ -59,7 +59,7 @@ const FriendRequests: React.FunctionComponent<IFriendRequestsProps> = ({
                 friendRequests.map((request) => (
                     <li key={request.senderEmail} className="flex justify-between gap-x-6 py-5 w-full max-w-2xl">
                         <div className="flex w-full gap-x-4">
-                            <Image className="h-12 w-12 flex-none rounded-full bg-gray-50" src={request.senderImage} alt="" />
+                            <Image className="h-12 w-12 flex-none rounded-full bg-gray-50" src={request.senderImage} alt="" height={720} width={720}/>
                             <div className="min-w-0 flex-auto">
                                 <p className="text-base font-semibold leading-6 text-slate-200">{request.senderName}</p>
                                 <p className="mt-1 truncate text-sm leading-5 text-gray-300">{request.senderEmail}</p>

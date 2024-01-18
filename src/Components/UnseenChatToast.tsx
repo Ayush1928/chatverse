@@ -22,7 +22,7 @@ const UnseenChatToast: React.FunctionComponent<IUnseenChatToastProps> = ({ t, se
             <div className="flex items-start">
                 <div className="flex-shrink-0 pt-0.5">
                     <div className="relative h-10 w-10">
-                        <Image fill referrerPolicy='no-referrer' className='rounded-full' src={senderImg} alt={`${senderName} profile picture`} />
+                        <Image referrerPolicy='no-referrer' className='rounded-full' src={senderImg} alt={`${senderName} profile picture`} height={720} width={720}/>
                     </div>
                 </div>
 
